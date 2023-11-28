@@ -31,6 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/buku/search', [ControllerBuku::class, 'search'])->name('buku.search');
     Route::get('/detail-buku/{title}', [ControllerBuku::class, 'galeri_buku'])->name('galeri.buku');
     Route::post('/buku/rate/{id}', [ControllerBuku::class, 'rateBuku'])->name('buku.rate');
+    Route::post('/buku/{id}/favorite', [ControllerBuku::class, 'addToFavorites'])->name('buku.favorite');
+    Route::get('/buku/myfavorites', [ControllerBuku::class, 'myFavorites'])->name('buku.myfavorites');
 });
 
 Route::middleware(['auth'])->group(function () {

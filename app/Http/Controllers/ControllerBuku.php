@@ -8,6 +8,7 @@ use App\Models\Buku;
 use App\Models\Gallery;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
+use App\Models\FavoriteBook;
 
 class ControllerBuku extends Controller
 {
@@ -195,5 +196,28 @@ class ControllerBuku extends Controller
 
 
     }
+
+
+    public function addToFavorites(Request $request, $id)
+    {
+        $user = auth()->user();
+
+        // Check if the book is already in the user's favorites
+        if (!$user->favoriteBooks()->where('book_id', $id)->exists()) {
+            // Add the book to the user's favorites
+            $user->favoriteBooks()->create(['book_id' => $id]);
+        }
+
+        return redirect()->back()->with('success', 'Book added to favorites');
+    }
+
+    public function myFavorites()
+    {
+        $user = auth()->user();
+        $favoriteBooks = $user->favoriteBooks()->with('book')->get();
+
+        return view('buku.my_favorites', compact('favoriteBooks'));
+    }
+
     
 }

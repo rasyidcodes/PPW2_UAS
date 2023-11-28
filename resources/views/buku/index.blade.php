@@ -9,6 +9,13 @@
                     {{ __('Tambah Buku Baru') }}
                 </a>
             @endif
+
+            @auth
+                <a href="{{ route('buku.myfavorites') }}" class="inline-block px-4 py-2 border border-green-500 text-green-500 bg-green-100 rounded">
+                    {{ __('Buku Favoritku') }}
+                </a>
+            @endauth
+            
         </div>
     </x-slot>
 

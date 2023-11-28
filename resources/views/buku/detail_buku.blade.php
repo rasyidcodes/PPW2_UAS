@@ -13,6 +13,15 @@
                         <h2 class="text-3xl font-bold mb-4">{{ $bukus->judul }}</h2>
                         <hr class="my-2">
                         
+
+                      
+                        @auth
+                            <form method="post" action="{{ route('buku.favorite', ['id' => $bukus->id]) }}">
+                                @csrf
+                                <button type="submit">Save to Favorites</button>
+                            </form>
+                        @endauth
+
                         <!-- Rating Section -->
                         <div class="flex items-center mb-4">
                             <p class="text-xl font-semibold mr-2">Rating:</p>
