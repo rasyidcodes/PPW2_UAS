@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama_galeri');
             $table->string('path')->nullable();
-            $table->string('galeri_seo');
-            $table->text('keterangan');
+            $table->string('galeri_seo')->nullable();
+            $table->text('keterangan')->nullable();
             $table->string('foto');
             $table->unsignedBigInteger('buku_id');
             $table->foreign('buku_id')

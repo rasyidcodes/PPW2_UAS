@@ -10,7 +10,8 @@ class Buku extends Model
 {
     protected $table = 'buku';
 
-    protected $fillable = ['id', 'judul', 'penulis', 'harga', 'tgl_terbit', 'created_at', 'updated_at', 'filename', 'filepath'];
+    protected $fillable = ['id', 'judul', 'penulis', 'harga', 'tgl_terbit', 'created_at', 'updated_at', 'filename', 'filepath','rating',
+    'rating_count',];
 
     protected $dates = ['tgl_terbit'];
 

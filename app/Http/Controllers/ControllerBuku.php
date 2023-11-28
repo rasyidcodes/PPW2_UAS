@@ -167,4 +167,29 @@ class ControllerBuku extends Controller
         return view ('buku.detail_buku', compact('bukus', 'galeries'));
     }
 
+    public function rateBuku(Request $request, $id) {
+        $this->validate($request, [
+            'rating' => 'required|integer|between:1,5',
+        ]);
+    
+        $buku = Buku::find($id);
+        $currentRating = $buku->rating ?? 0;
+        $currentCount = $buku->rating_count ?? 0;
+    
+        // Calculate new average rating
+        $newRating = ($currentRating * $currentCount + $request->rating) / ($currentCount + 1);
+    
+        // Update book's rating and rating_count
+        $buku->update([
+            'rating' => $newRating,
+            'rating_count' => $currentCount + 1,
+        ]);
+
+        return redirect()->back()->with('success', 'Rating submitted successfully');
+    
+        // return redirect()->route('galeri.buku', ['buku_seo' => $buku->buku_seo])->with('pesan', 'Rating submitted successfully');
+
+
+    }
+    
 }
