@@ -33,8 +33,22 @@
                             <p class="text-lg font-semibold ml-2">{{ number_format($bukus->rating, 1) }}</p>
                         </div>
                         
-                        <!-- Rating Form -->
-                        <form method="post" action="{{ route('buku.rate', ['id' => $bukus->id]) }}">
+                       
+
+                        <!-- Image Gallery Section -->
+                        <div class="flex flex-wrap gap-4 overflow-x-auto">
+                            @foreach($bukus->galleries as $gallery)
+                                <div class="flex-shrink-0 flex flex-col items-center rounded-md bg-white m-2 p-4">
+                                    <a href="{{ asset($gallery->path) }}" data-lightbox="image-1" data-title="{{ $gallery->keterangan }}">
+                                        <img src="{{ asset($gallery->path) }}" class="w-200 h-150 object-cover rounded-md" alt="{{ $gallery->nama_galeri }}" width="200" height="150">
+                                    </a>
+                                    <p class="mt-2 text-sm">{{ $gallery->nama_galeri }}</p>
+                                </div>
+                            @endforeach
+                        </div>
+
+                         <!-- Rating Form -->
+                         <form method="post" action="{{ route('buku.rate', ['id' => $bukus->id]) }}">
                             @csrf
                             <div class="mb-4">
                                 <label for="rating" class="block text-sm font-medium text-gray-700">Submit Rating:</label>
@@ -49,17 +63,7 @@
                             <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Submit Rating</button>
                         </form>
 
-                        <!-- Image Gallery Section -->
-                        <div class="flex flex-wrap gap-4 overflow-x-auto">
-                            @foreach($bukus->galleries as $gallery)
-                                <div class="flex-shrink-0 flex flex-col items-center rounded-md bg-white m-2 p-4">
-                                    <a href="{{ asset($gallery->path) }}" data-lightbox="image-1" data-title="{{ $gallery->keterangan }}">
-                                        <img src="{{ asset($gallery->path) }}" class="w-200 h-150 object-cover rounded-md" alt="{{ $gallery->nama_galeri }}" width="200" height="150">
-                                    </a>
-                                    <p class="mt-2 text-sm">{{ $gallery->nama_galeri }}</p>
-                                </div>
-                            @endforeach
-                        </div>
+                        
                     </div>
                 </section>
 

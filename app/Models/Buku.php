@@ -10,15 +10,15 @@ class Buku extends Model
 {
     protected $table = 'buku';
 
-    protected $fillable = ['id', 'judul', 'penulis', 'harga', 'tgl_terbit', 'created_at', 'updated_at', 'filename', 'filepath','rating',
+    protected $fillable = ['id', 'judul', 'penulis', 'harga', 'tgl_terbit', 'created_at', 'updated_at', 'filename', 'filepath','rating', 'buku_seo',
     'rating_count',];
 
     protected $dates = ['tgl_terbit'];
 
     public function galleries()
-{
-    return $this->hasMany(Gallery::class);
-}
+    {
+        return $this->hasMany(Gallery::class);
+    }
 
     public function photos()
     {

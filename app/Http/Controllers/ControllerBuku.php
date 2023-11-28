@@ -1,11 +1,13 @@
 <?php
 
+
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Buku;  
 use App\Models\Gallery;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
 
 class ControllerBuku extends Controller
 {
@@ -54,7 +56,8 @@ class ControllerBuku extends Controller
             'judul' => $request->judul,
             'penulis' => $request->penulis,
             'harga' => $request->harga,
-            'tgl_terbit' => $request->tgl_terbit
+            'tgl_terbit' => $request->tgl_terbit,
+            'buku_seo' => Str::slug($request->judul, '-'),
         ]);
     
         if ($request->hasFile('thumbnail')) {
@@ -70,6 +73,7 @@ class ControllerBuku extends Controller
                 'penulis'   => $request->penulis,
                 'harga'     => $request->harga,
                 'tgl_terbit'=> $request->tgl_terbit,
+                'buku_seo' => Str::slug($request->judul, '-'),
                 'filename'  => $fileName,
                 'filepath'  => '/storage/' . $filePath
             ]);
