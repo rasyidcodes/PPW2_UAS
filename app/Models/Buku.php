@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Buku extends Model
 {
+
+    use HasFactory;
+
     protected $table = 'buku';
 
     protected $fillable = ['id', 'judul', 'penulis', 'harga', 'tgl_terbit', 'created_at', 'updated_at', 'filename', 'filepath','rating', 'buku_seo',
@@ -23,5 +26,10 @@ class Buku extends Model
     public function photos()
     {
         return $this->hasMany('App\Models\Buku', 'id', 'id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

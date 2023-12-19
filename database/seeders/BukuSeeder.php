@@ -12,7 +12,7 @@ class BukuSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Buku::factory(12)->create();
+        \App\Models\Buku::factory(20)->create();
     }
 }
 

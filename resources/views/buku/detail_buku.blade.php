@@ -12,71 +12,97 @@
                     <div class="container mx-auto">
                         <h2 class="text-3xl font-bold mb-4">{{ $bukus->judul }}</h2>
                         <hr class="my-2">
-                        
 
-                      
+
+
                         @auth
                             <form method="post" action="{{ route('buku.favorite', ['id' => $bukus->id]) }}">
                                 @csrf
-                                <button type="submit">Save to Favorites</button>
+                                <button type="submit"
+                                    class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">Save
+                                    to Favorites</button>
                             </form>
                         @endauth
 
+
+
+
                         <!-- Rating Section -->
-                        <div class="flex items-center mb-4">
+                        <div class="flex items-center mb-4 justify-center mt-8">
                             <p class="text-xl font-semibold mr-2">Rating:</p>
                             <div class="flex">
                                 <!-- Display stars based on the average rating -->
-                                @for($i = 1; $i <= 5; $i++)
-                                    @if($i <= $bukus->rating)
-                                        <svg fill="gold" class="w-5 h-5 text-yellow-500" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10 2a1 1 0 0 1 .773.37l1.94 2.497 4.81.556a1 1 0 0 1 .554 1.705l-3.53 3.428.83 4.874a1 1 0 0 1-1.451 1.054L10 14.666l-4.315 2.26a1 1 0 0 1-1.45-1.055l.83-4.874-3.53-3.428a1 1 0 0 1 .554-1.705l4.81-.556L9.227 2.37A1 1 0 0 1 10 2z"/>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @if ($i <= $bukus->rating)
+                                        <svg fill="gold" class="w-5 h-5 text-yellow-500" viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10 2a1 1 0 0 1 .773.37l1.94 2.497 4.81.556a1 1 0 0 1 .554 1.705l-3.53 3.428.83 4.874a1 1 0 0 1-1.451 1.054L10 14.666l-4.315 2.26a1 1 0 0 1-1.45-1.055l.83-4.874-3.53-3.428a1 1 0 0 1 .554-1.705l4.81-.556L9.227 2.37A1 1 0 0 1 10 2z" />
                                         </svg>
                                     @else
-                                        <svg fill="gray" class="w-5 h-5" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10 2a1 1 0 0 1 .773.37l1.94 2.497 4.81.556a1 1 0 0 1 .554 1.705l-3.53 3.428.83 4.874a1 1 0 0 1-1.451 1.054L10 14.666l-4.315 2.26a1 1 0 0 1-1.45-1.055l.83-4.874-3.53-3.428a1 1 0 0 1 .554-1.705l4.81-.556L9.227 2.37A1 1 0 0 1 10 2z"/>
+                                        <svg fill="gray" class="w-5 h-5" viewBox="0 0 20 20"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M10 2a1 1 0 0 1 .773.37l1.94 2.497 4.81.556a1 1 0 0 1 .554 1.705l-3.53 3.428.83 4.874a1 1 0 0 1-1.451 1.054L10 14.666l-4.315 2.26a1 1 0 0 1-1.45-1.055l.83-4.874-3.53-3.428a1 1 0 0 1 .554-1.705l4.81-.556L9.227 2.37A1 1 0 0 1 10 2z" />
                                         </svg>
                                     @endif
                                 @endfor
                             </div>
                             <p class="text-lg font-semibold ml-2">{{ number_format($bukus->rating, 1) }}</p>
                         </div>
-                        
-                       
+
+
 
                         <!-- Image Gallery Section -->
-                        <div class="flex flex-wrap gap-4 overflow-x-auto">
-                            @foreach($bukus->galleries as $gallery)
+                        <div class="flex flex-wrap gap-4 overflow-x-auto justify-center mt-8">
+                            @foreach ($bukus->galleries as $gallery)
                                 <div class="flex-shrink-0 flex flex-col items-center rounded-md bg-white m-2 p-4">
-                                    <a href="{{ asset($gallery->path) }}" data-lightbox="image-1" data-title="{{ $gallery->keterangan }}">
-                                        <img src="{{ asset($gallery->path) }}" class="w-200 h-150 object-cover rounded-md" alt="{{ $gallery->nama_galeri }}" width="200" height="150">
+                                    <a href="{{ asset($gallery->path) }}" data-lightbox="image-1"
+                                        data-title="{{ $gallery->keterangan }}">
+                                        <img src="{{ asset($gallery->path) }}"
+                                            class="w-200 h-150 object-cover rounded-md"
+                                            alt="{{ $gallery->nama_galeri }}" width="200" height="150">
                                     </a>
                                     <p class="mt-2 text-sm">{{ $gallery->nama_galeri }}</p>
                                 </div>
                             @endforeach
                         </div>
 
-                         <!-- Rating Form -->
-                         <form method="post" action="{{ route('buku.rate', ['id' => $bukus->id]) }}">
+                        <!-- Rating Form -->
+                        <form method="post" action="{{ route('buku.rate', ['id' => $bukus->id]) }}">
                             @csrf
-                            <div class="mb-4">
-                                <label for="rating" class="block text-sm font-medium text-gray-700">Submit Rating:</label>
-                                <select name="rating" id="rating" class="mt-1 block w-1/4">
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                </select>
+                            <div class="mb-4 mt-8">
+                                <label for="rating" class="block text-sm font-medium text-gray-700">Submit
+                                    Rating:</label>
+                                <div class="flex justify-center">
+                                    <select name="rating" id="rating" class="mt-1 block w-1/4">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
                             </div>
-                            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Submit Rating</button>
+                            <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded mt-8">Submit
+                                Rating</button>
                         </form>
 
-                        
+
+
+
                     </div>
                 </section>
 
-                <a href="{{ route('buku.index') }}" class="inline-block px-4 py-2 border border-blue-500 text-blue-500 bg-blue-100 rounded mt-4">
+                <div class="mt-8 flex justify-center">
+                    <a href="{{ route('review.show', ['title' => $bukus->buku_seo, 'bukuId' => $bukus->id]) }}"
+                        class=" mt-8 bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-700">
+                        Add Review
+                    </a>
+                </div>
+
+                <a href="{{ route('buku.index') }}"
+                    class="inline-block px-4 py-2 border border-blue-500 text-blue-500 bg-blue-100 rounded mt-4">
                     {{ __('Kembali ke Daftar Buku') }}
                 </a>
             </div>

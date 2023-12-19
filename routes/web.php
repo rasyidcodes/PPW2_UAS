@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControllerBuku;
+use App\Http\Controllers\ReviewController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +39,24 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::get('/buku/create', [ControllerBuku::class, 'create'])->name('buku.create');
     Route::post('/buku', [ControllerBuku::class, 'store'])->name('buku.store');
+    Route::get('/bukupopuler', [ControllerBuku::class, 'bukupopuler'])->name('buku.populer');
     Route::delete('/buku/{id}', [ControllerBuku::class, 'destroy'])->name('buku.destroy');
     Route::get('/buku/edit/{id}', [ControllerBuku::class, 'edit'])->name('buku.edit');
     Route::post('/buku/update/{id}', [ControllerBuku::class, 'update'])->name('buku.update');
     Route::delete('/buku/{buku}/gallery/{gallery}', [ControllerBuku::class, 'deleteGallery'])->name('buku.deleteGallery');
     // Route::get('/detail-buku/{title}', [ControllerBuku::class, 'galeri_buku'])->name('galeri.buku');
+
+    Route::post('/buku/{bukuId}/submit-review', [ReviewController::class, 'submitReview'])
+    ->name('review.submit');
+
+// Route for showing reviews
+Route::get('/buku/{bukuId}/reviews', [ReviewController::class, 'showReviews'])
+    ->name('review.show');
+
+// Route for deleting a review
+Route::delete('/review/{reviewId}/delete', [ReviewController::class, 'deleteReview'])
+    ->name('review.delete');
+
 });
 
 

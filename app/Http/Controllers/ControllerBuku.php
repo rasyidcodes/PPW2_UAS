@@ -15,6 +15,7 @@ class ControllerBuku extends Controller
 
 
     
+    
     public function index(){
         $batas = 5;
         $jumlah_buku = Buku::count();
@@ -217,6 +218,15 @@ class ControllerBuku extends Controller
         $favoriteBooks = $user->favoriteBooks()->with('book')->get();
 
         return view('buku.my_favorites', compact('favoriteBooks'));
+    }
+
+    public function bukupopuler(){
+        $bukuPopuler = Buku::whereNotNull('rating')
+        ->orderByDesc('rating')
+        ->take(10)
+        ->get();
+
+        return view('buku.buku_populer', compact('bukuPopuler'));
     }
 
     
